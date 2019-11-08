@@ -5,6 +5,9 @@
 /dist
 /node_modules
 
+# Screeps credentials file
+/config/credentials.json
+
 # Screeps config file
 /config.json
 

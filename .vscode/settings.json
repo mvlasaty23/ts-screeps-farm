@@ -1,6 +1,5 @@
 {
-  "editor.tabSize": 2,
-  "editor.insertSpaces": true,
+                                           "editor.insertSpaces": false,
   "editor.renderWhitespace": "boundary",
   "files.encoding": "utf8",
   "files.trimTrailingWhitespace": true,
@@ -11,5 +10,6 @@
     "typings/**": true
   },
   "typescript.tsdk": "./node_modules/typescript/lib",
-  "standard.enable": false
+  "standard.enable": false,
+  "editor.detectIndentation": false
 }
