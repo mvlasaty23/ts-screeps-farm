@@ -2,11 +2,25 @@ import { RoomManager } from "managers/room-manager";
 import { SpawnManager } from "managers/spawn-manager";
 
 export interface CreepBaseInterface {
+	isBagEmpty(creep: Creep): boolean;
+	isBagFull(creep: Creep): boolean;
     moveTo(creep: Creep, target: RoomPosition|{pos: RoomPosition}, color: string): number;
     action(creep: Creep): boolean;
 }
 
 export class CreepBase implements CreepBaseInterface {
+
+	public isBagEmpty(creep: Creep): boolean {
+		return (creep.carry.energy == 0);
+	}
+
+	public isBagFull(creep: Creep): boolean {
+		return (creep.carry.energy == creep.carryCapacity);
+	}
+
+	public getBagUsedCapacity(creep: Creep): number {
+		return creep.carry.energy;
+	}
 
     public moveTo(creep: Creep, target: RoomPosition|{pos: RoomPosition}, color: string) {
         return creep.moveTo(target, {visualizePathStyle: {stroke: color}});
@@ -21,7 +35,7 @@ export class CreepBase implements CreepBaseInterface {
 			}
 			// return true to break execution after
 			return true;
-		} else if (["8a22cb2016a6ca9", "da3acca4f776ea6"].indexOf(creep.id) > -1) { // kill creep
+		} else if (["7822c3309624766"].indexOf(creep.id) > -1) { // kill creep
 			creep.say("🧟‍♂️");
 			if (SpawnManager.getFirstSpawn().recycleCreep(creep) == ERR_NOT_IN_RANGE) {
 				this.moveTo(creep, SpawnManager.getFirstSpawn().pos, "#FF0000");

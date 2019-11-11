@@ -1,7 +1,6 @@
 import { SpawnManager } from "managers/spawn-manager";
 import { CreepBaseInterface } from "./creep-base";
 import { CreepPickupBase } from "./creep-pickup-base";
-import { CreepManager } from "managers/creep-manager";
 
 export interface CarryInterface {
 	tryPickup(creep: Creep): number;
@@ -60,12 +59,12 @@ export class Carry extends CreepPickupBase implements CarryInterface, CreepBaseI
 			return;
 		}
 
-		if (CreepManager.isBagFull(creep) || creep.memory["unloadInProgress"]) {
+		if (this.isBagFull(creep) || this.getBagUsedCapacity(creep) > 400 || creep.memory["unloadInProgress"]) {
 			creep.memory["unloadInProgress"] = true;
 			this.moveToEnergyDropOff(creep);
 
 			// reset unloadInProgress if bag is empty!
-			if (CreepManager.isBagEmpty(creep)) {
+			if (this.isBagEmpty(creep)) {
 				creep.memory["unloadInProgress"] = false;
 			}
 		} else {

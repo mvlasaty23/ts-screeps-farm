@@ -24,32 +24,7 @@ export namespace BodyBuilder {
 
 		const availableEnergy = SpawnManager.getEnergyAvailable();
 
-		// let calculate = true;
 		let tryCounter = 4;
-		// while (calculate) {
-			// for (var j = 0; j < tryCounter; j++) {
-			// 	for (var i = 0; i < options.ratio; i++) {
-			// 		result.push(options.primaryPart);
-			// 		if (options.thirdPart) {
-			// 			result.push(options.thirdPart)
-			// 		}
-			// 	}
-			// 	result.push(options.secondaryPart);
-			// }
-		// 	if (calculateResultOfResult(result) <= availableEnergy) {
-		// 		// console.log("completed", calculateResultOfResult(result), result);
-		// 		calculate = false;
-		// 	} else {
-		// 		tryCounter--;
-		// 		result = [];
-		// 	}
-		// 	if (tryCounter == 0) {
-		// 		calculate = false;
-		// 		result = [];
-		// 	}
-		// }
-
-
 		for (var j = 0; j < tryCounter; j++) {
 			for (var i = 0; i < options.ratio; i++) {
 				result.push(options.primaryPart);
@@ -61,12 +36,21 @@ export namespace BodyBuilder {
 		}
 
 		let energyCosts = calculateResultOfResult(result)
-		if (energyCosts <= availableEnergy) {
+		if (energyCosts > availableEnergy) {
 			let calculate = true;
 			while (calculate) {
 				result.pop();
+				let minLength = options.ratio
+				if (options.thirdPart) {
+					minLength += options.ratio
+				}
+				minLength += 1;
+				if (result.length < minLength) {
+					return [];
+				}
+				energyCosts = calculateResultOfResult(result)
 				if (energyCosts <= availableEnergy) {
-					console.log("completed", energyCosts, result);
+					// console.log("completed", energyCosts, result);
 					calculate = false;
 				}
 			}

@@ -1,7 +1,6 @@
 import { RoomManager } from "managers/room-manager";
 import { CreepBaseInterface } from "./creep-base";
 import { CreepPickupBase } from "./creep-pickup-base";
-import { CreepManager } from "managers/creep-manager";
 
 export interface UpgraderInterface {
 	tryPickup(creep: Creep): number;
@@ -29,12 +28,12 @@ export class Upgrader extends CreepPickupBase implements UpgraderInterface, Cree
 			return;
 		}
 
-		if (CreepManager.isBagFull(creep) || creep.memory["unloadInProgress"]) {
+		if (this.isBagFull(creep) || creep.memory["unloadInProgress"]) {
 			creep.memory["unloadInProgress"] = true;
 			this.moveToEnergyDropOff(creep);
 
 			// reset unloadInProgress if bag is empty!
-			if (CreepManager.isBagEmpty(creep)) {
+			if (this.isBagEmpty(creep)) {
 				creep.memory["unloadInProgress"] = false;
 			}
 		} else {

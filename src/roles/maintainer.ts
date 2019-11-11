@@ -1,7 +1,6 @@
 import { SourceManager } from "managers/sources-manager";
 import { CreepBaseInterface } from "./creep-base";
 import { CreepPickupBase } from "./creep-pickup-base";
-import { CreepManager } from "managers/creep-manager";
 
 export interface MaintainerInterface {
 	tryPickup(creep: Creep): number;
@@ -28,12 +27,12 @@ export class Maintainer extends CreepPickupBase implements MaintainerInterface, 
 			return;
 		}
 
-		if (CreepManager.isBagFull(creep) || creep.memory["unloadInProgress"]) {
+		if (this.isBagFull(creep) || creep.memory["unloadInProgress"]) {
 			creep.memory["unloadInProgress"] = true;
 			this.moveToTryMaintain(creep);
 
 			// reset unloadInProgress if bag is empty!
-			if (CreepManager.isBagEmpty(creep)) {
+			if (this.isBagEmpty(creep)) {
 				creep.memory["unloadInProgress"] = false;
 			}
 		} else {

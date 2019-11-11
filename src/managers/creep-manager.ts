@@ -157,14 +157,6 @@ export namespace CreepManager {
 		return false;
 	}
 
-	export function isBagEmpty(creep: Creep): boolean {
-		return (creep.carry.energy == 0);
-	}
-
-	export function isBagFull(creep: Creep): boolean {
-		return (creep.carry.energy == creep.carryCapacity);
-	}
-
 	export function getNearestCreepToHeal(pos: RoomPosition): Creep {
 		let result = pos.findClosestByRange<Creep>(FIND_CREEPS, {
 			filter: (object: Creep) => (object.hits < object.hitsMax)

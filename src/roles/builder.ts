@@ -1,4 +1,3 @@
-import { CreepManager } from "managers/creep-manager";
 import { SourceManager } from "managers/sources-manager";
 import { CreepBaseInterface } from "./creep-base";
 import { CreepPickupBase } from "./creep-pickup-base";
@@ -29,12 +28,12 @@ export class Builder extends CreepPickupBase implements BuilderInterface, CreepB
 			return;
 		}
 
-		if (CreepManager.isBagFull(creep) || creep.memory["buildInProgress"]) {
+		if (this.isBagFull(creep) || creep.memory["buildInProgress"]) {
 			creep.memory["buildInProgress"] = true;
 			this.moveToTryBuild(creep);
 
 			// reset buildInProgress if bag is empty!
-			if (CreepManager.isBagEmpty(creep)) {
+			if (this.isBagEmpty(creep)) {
 				creep.memory["buildInProgress"] = false;
 			}
 		} else {
