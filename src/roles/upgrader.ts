@@ -29,13 +29,13 @@ export class Upgrader extends CreepPickupBase implements UpgraderInterface, Cree
 			return;
 		}
 
-		if (CreepManager.isBagFull(creep) || creep.memory.unloadInProgress) {
-			creep.memory.unloadInProgress = true;
+		if (CreepManager.isBagFull(creep) || creep.memory["unloadInProgress"]) {
+			creep.memory["unloadInProgress"] = true;
 			this.moveToEnergyDropOff(creep);
 
 			// reset unloadInProgress if bag is empty!
 			if (CreepManager.isBagEmpty(creep)) {
-				creep.memory.unloadInProgress = false;
+				creep.memory["unloadInProgress"] = false;
 			}
 		} else {
 			this.moveToEnergySource(creep);

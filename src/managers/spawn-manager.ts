@@ -1,7 +1,7 @@
 import { RoomManager } from "./room-manager";
 
 export namespace SpawnManager {
-    export function getFirstSpawn(): Spawn {
+    export function getFirstSpawn(): StructureSpawn {
 		let result: StructureSpawn = null;
 		for(const i in Game.spawns) {
 			result = Game.spawns[i]
@@ -14,8 +14,8 @@ export namespace SpawnManager {
 	}
 
 	export function getExtensionsLength(): number {
-		let extensions = RoomManager.getFirstRoom().find<Extension>(FIND_STRUCTURES, {
-			filter: (object: Extension) => (object.structureType == STRUCTURE_EXTENSION)
+		let extensions = RoomManager.getFirstRoom().find<StructureExtension>(FIND_STRUCTURES, {
+			filter: (object: StructureExtension) => (object.structureType == STRUCTURE_EXTENSION)
 		});
 		return extensions.length;
 	}

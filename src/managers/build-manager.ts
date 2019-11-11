@@ -17,16 +17,23 @@ export namespace BuildManager {
 		constructedAndPlannedExtensionsCount += SpawnManager.getPlannedExtensionsLength();
 		if (constructedAndPlannedExtensionsCount < ConfigManager.getNeedetExtensionsCount()){
 			const spawn = SpawnManager.getFirstSpawn();
-			const freePositions = getFreePositionsAround(spawn.pos, 4);
-			built(freePositions, STRUCTURE_EXTENSION);
+			if (SourceManager.getFirstController().level < 4) {
+				const freePositions = getFreePositionsAround(spawn.pos, 4);
+				built(freePositions, STRUCTURE_EXTENSION);
+			} else {
+				const freePositions = getFreePositionsAround(spawn.pos, 7);
+				built(freePositions, STRUCTURE_EXTENSION);
+			}
 		} else {
 			// built containers
 			if (SourceManager.getContainerLength() < 5) {
 				built(generateContainers(), STRUCTURE_CONTAINER);
-			} else {
+			} else if (SpawnManager.getFirstSpawn().memory.controllerUpgradet) {
+				built(generateControllerRoads(), STRUCTURE_ROAD);
 				built(generateRoads(), STRUCTURE_ROAD);
 				built(generateTower(), STRUCTURE_TOWER);
 				built(generateStorage(), STRUCTURE_STORAGE);
+				SpawnManager.getFirstSpawn().memory.controllerUpgradet == false;
 			}
 		}
 	}
@@ -218,6 +225,55 @@ export namespace BuildManager {
 		return false;
 	}
 
+	export function generateControllerRoads(): RoomPosition[] {
+		const spawn = SpawnManager.getFirstSpawn();
+		const firstRoom = RoomManager.getFirstRoom();
+
+		const controller = SourceManager.getFirstController()
+		controller.pos
+
+		// North
+		const northEdge = new RoomPosition(spawn.pos.x, spawn.pos.y - 7, firstRoom.name);
+		const northPath = firstRoom.findPath(northEdge, controller.pos, { ignoreCreeps: true, ignoreRoads: true });
+		const pathArray: [PathStep[]] = [northPath];
+		console.log("northEdge: x:" + northEdge.x + " y:" + northEdge.y, northPath.length);
+		// South
+		const southEdge = new RoomPosition(spawn.pos.x, spawn.pos.y + 7, firstRoom.name);
+		const southPath = firstRoom.findPath(southEdge, controller.pos, { ignoreCreeps: true, ignoreRoads: true });
+		pathArray.push(southPath);
+		console.log("southEdge: x:" + southEdge.x + " y:" + southEdge.y, southPath.length);
+		// East
+		const eastEdge = new RoomPosition(spawn.pos.x + 7, spawn.pos.y, firstRoom.name);
+		const eastPath = firstRoom.findPath(eastEdge, controller.pos, { ignoreCreeps: true, ignoreRoads: true });
+		pathArray.push(eastPath);
+		console.log("eastEdge: x:" + eastEdge.x + " y:" + eastEdge.y, eastPath.length);
+		// West
+		const westEdge = new RoomPosition(spawn.pos.x - 7, spawn.pos.y, firstRoom.name);
+		const westPath = firstRoom.findPath(westEdge, controller.pos, { ignoreCreeps: true, ignoreRoads: true });
+		pathArray.push(westPath);
+		console.log("westEdge: x:" + westEdge.x + " y:" + westEdge.y, westPath.length);
+
+		let lowest = Number.POSITIVE_INFINITY;
+		let highest = Number.NEGATIVE_INFINITY;
+		let tmp: number;
+		let shortestPath: PathStep[];
+		for (var i=pathArray.length-1; i>=0; i--) {
+			tmp = pathArray[i].length;
+			if (tmp < lowest) {
+				lowest = tmp;
+				shortestPath = pathArray[i];
+			};
+			if (tmp > highest) highest = tmp;
+		}
+
+		let positions: RoomPosition[] = [];
+		shortestPath.forEach((pathStep: PathStep) => {
+			positions.push(new RoomPosition(pathStep.x, pathStep.y, firstRoom.name));
+		});
+
+		return positions;
+	}
+
 	function generateRoads(): RoomPosition[] {
 		let positions: RoomPosition[] = [];
 		const spawn = SpawnManager.getFirstSpawn();
@@ -233,7 +289,8 @@ export namespace BuildManager {
 		positions.push(new RoomPosition(spawn.pos.x + 1, spawn.pos.y + 1, roomName));
 
 
-		for (var i = 0; i < 4; i++) {
+		// arme
+		for (var i = 0; i < 8; i++) {
 			// right arm
 			positions.push(new RoomPosition(spawn.pos.x + i, spawn.pos.y, roomName));
 			// left arm
@@ -253,6 +310,7 @@ export namespace BuildManager {
 			positions.push(new RoomPosition(spawn.pos.x - (2 + i), spawn.pos.y + (2 + i), roomName));
 		}
 
+		// geraden
 		for (var i = 0; i < 7; i++) {
 			// connect left top arm with right top arm
 			positions.push(new RoomPosition((spawn.pos.x - 3) + i, spawn.pos.y - 4, roomName));
@@ -262,6 +320,17 @@ export namespace BuildManager {
 			positions.push(new RoomPosition(spawn.pos.x - 4, (spawn.pos.y - 3) + i, roomName));
 			// connect right top arm with right bottm arm
 			positions.push(new RoomPosition(spawn.pos.x + 4, (spawn.pos.y - 3) + i, roomName));
+		}
+
+		for (var i = 0; i < 13; i++) {
+			// connect left top arm with right top arm
+			positions.push(new RoomPosition((spawn.pos.x - 6) + i, spawn.pos.y - 7, roomName));
+			// connect left bottom arm with right bottm arm
+			positions.push(new RoomPosition((spawn.pos.x - 6) + i, spawn.pos.y + 7, roomName));
+			// connect left top arm with left bottm arm
+			positions.push(new RoomPosition(spawn.pos.x - 7, (spawn.pos.y - 6) + i, roomName));
+			// connect right top arm with right bottm arm
+			positions.push(new RoomPosition(spawn.pos.x + 7, (spawn.pos.y - 6) + i, roomName));
 		}
 		return positions;
 	}

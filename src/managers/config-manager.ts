@@ -49,8 +49,8 @@ export namespace ConfigManager {
 			configLvl = 3;
 			config = { MAX_MINERS: 2,
 				MAX_CARRYS: 1,
-				MAX_BUILDERS: 2,
-				MAX_UPGRADERS: 3,
+				MAX_BUILDERS: 3,
+				MAX_UPGRADERS: 4,
 				MAX_MAINTAINERS: 1,
 				MINER_RATIO: 3,
 				CARRY_RATIO: 3,

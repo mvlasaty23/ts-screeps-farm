@@ -1,0 +1,8 @@
+{
+  "resolution": "main",
+  "tree": {
+    "src": "https://raw.githubusercontent.com/DefinitelyTyped/DefinitelyTyped/5c8e288f4f841d973c7fa145aa21501383d18e3e/webpack-chain/index.d.ts",
+    "raw": "registry:dt/webpack-chain#3.0.0+20170322005926",
+    "typings": "https://raw.githubusercontent.com/DefinitelyTyped/DefinitelyTyped/5c8e288f4f841d973c7fa145aa21501383d18e3e/webpack-chain/index.d.ts"
+  }
+}

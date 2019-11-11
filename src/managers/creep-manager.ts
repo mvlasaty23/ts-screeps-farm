@@ -10,23 +10,23 @@ import { SpawnManager } from "./spawn-manager";
 
 export namespace CreepManager {
 	export function getMinerCreeps(): Creep[] {
-		return _.filter(Game.creeps, (creep) => creep.memory.role == Roles.Miner);
+		return _.filter(Game.creeps, (creep) => creep.memory["role"] == Roles.Miner);
 	}
 
 	export function getCarryCreeps(): Creep[] {
-		return _.filter(Game.creeps, (creep) => creep.memory.role == Roles.Carry);
+		return _.filter(Game.creeps, (creep) => creep.memory["role"] == Roles.Carry);
 	}
 
 	export function getBuilderCreeps(): Creep[] {
-		return _.filter(Game.creeps, (creep) => creep.memory.role == Roles.Builder);
+		return _.filter(Game.creeps, (creep) => creep.memory["role"] == Roles.Builder);
 	}
 
 	export function getUpgraderCreeps(): Creep[] {
-		return _.filter(Game.creeps, (creep) => creep.memory.role == Roles.Upgrader);
+		return _.filter(Game.creeps, (creep) => creep.memory["role"] == Roles.Upgrader);
 	}
 
 	export function getMaintainerCreeps(): Creep[] {
-		return _.filter(Game.creeps, (creep) => creep.memory.role == Roles.Maintainer);
+		return _.filter(Game.creeps, (creep) => creep.memory["role"] == Roles.Maintainer);
 	}
 
 	export function run() {
@@ -144,7 +144,6 @@ export namespace CreepManager {
 
 	function spawnCreep(body: string[], name: string, role: string): boolean {
 		var status: number = SpawnManager.getFirstSpawn().spawnCreep(body, name, { dryRun: true });
-		console.log(status, role, body);
 		if (status == OK) {
 			SpawnManager.getFirstSpawn().spawnCreep(body, name, {
 				memory: {

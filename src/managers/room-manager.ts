@@ -14,7 +14,7 @@ export namespace RoomManager {
 	}
 
 	export function detectHostiles(): Creep[] {
-		return getFirstRoom().find<Creep>(FIND_HOSTILE_CREEPS);
+		return getFirstRoom().find(FIND_HOSTILE_CREEPS);
 	}
 
 	export function getStorage(): StructureStorage {

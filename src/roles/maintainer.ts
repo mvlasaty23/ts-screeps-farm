@@ -28,13 +28,13 @@ export class Maintainer extends CreepPickupBase implements MaintainerInterface, 
 			return;
 		}
 
-		if (CreepManager.isBagFull(creep) || creep.memory.unloadInProgress) {
-			creep.memory.unloadInProgress = true;
+		if (CreepManager.isBagFull(creep) || creep.memory["unloadInProgress"]) {
+			creep.memory["unloadInProgress"] = true;
 			this.moveToTryMaintain(creep);
 
 			// reset unloadInProgress if bag is empty!
 			if (CreepManager.isBagEmpty(creep)) {
-				creep.memory.unloadInProgress = false;
+				creep.memory["unloadInProgress"] = false;
 			}
 		} else {
 			this.moveToEnergySource(creep);

@@ -29,13 +29,13 @@ export class Builder extends CreepPickupBase implements BuilderInterface, CreepB
 			return;
 		}
 
-		if (CreepManager.isBagFull(creep) || creep.memory.buildInProgress) {
-			creep.memory.buildInProgress = true;
+		if (CreepManager.isBagFull(creep) || creep.memory["buildInProgress"]) {
+			creep.memory["buildInProgress"] = true;
 			this.moveToTryBuild(creep);
 
 			// reset buildInProgress if bag is empty!
 			if (CreepManager.isBagEmpty(creep)) {
-				creep.memory.buildInProgress = false;
+				creep.memory["buildInProgress"] = false;
 			}
 		} else {
 			this.moveToEnergySource(creep);

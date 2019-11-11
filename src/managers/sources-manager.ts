@@ -23,14 +23,14 @@ export namespace SourceManager {
 		return pos.findClosestByRange(FIND_CONSTRUCTION_SITES);
 	}
 
-	export function getFirstController(): Controller {
+	export function getFirstController(): StructureController {
 		return RoomManager.getFirstRoom().controller;
 	}
 
 	export function getNearestContainer(pos: RoomPosition): StructureContainer {
 		const container = pos.findClosestByRange<StructureContainer>(FIND_STRUCTURES, {
-			filter: (structure: Structure) => {
-				return (structure.structureType == STRUCTURE_CONTAINER);
+			filter: (structure: StructureContainer) => {
+				return (structure.structureType == STRUCTURE_CONTAINER && structure.store.getUsedCapacity() > 50);
 			}
 		});
 		return container;
