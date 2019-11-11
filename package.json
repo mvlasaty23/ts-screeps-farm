@@ -10,9 +10,8 @@
     "start": "webpack --colors --watch",
     "local": "webpack --colors --env.ENV=local",
     "private": "webpack --colors --env.ENV=private",
-    "vlas": "webpack --colors --env.ENV=vlas",
+    "feature": "webpack --colors --env.ENV=feature",
     "watch-local": "webpack --colors --watch --env.ENV=local",
-    "watch-vlas": "webpack --colors --watch --env.ENV=vlas",
     "test": "echo \"Error: no test specified\" && exit 1",
     "typings": "typings"
   },
