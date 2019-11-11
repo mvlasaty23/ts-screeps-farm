@@ -64,7 +64,6 @@ export namespace CreepManager {
 	function startWorkBuilders() {
 		getBuilderCreeps().forEach(builder => {
 			new Builder().action(builder);
-			console.log("builder runned");
 		});
 	}
 

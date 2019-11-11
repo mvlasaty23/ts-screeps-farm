@@ -4,8 +4,8 @@ import { SourceManager } from "managers/sources-manager";
 export interface CreepPickupBaseInterface {
 	tryPickup(creep: Creep): number;
 	moveToTryPickup(creep: Creep): void;
-	tryWithdraw(creep: Creep): number;
-	moveToTryWithdraw(creep: Creep): void;
+	tryWithdraw(creep: Creep, structureContainer: StructureContainer): number;
+	moveToTryWithdraw(creep: Creep, structureContainer: StructureContainer): void;
 	moveToEnergySource(creep: Creep): void;
 }
 
@@ -24,20 +24,21 @@ export class CreepPickupBase extends CreepBase implements CreepPickupBaseInterfa
 		}
 	}
 
-	tryWithdraw(creep: Creep): number {
-		return creep.withdraw(SourceManager.getNearestContainer(creep.pos), RESOURCE_ENERGY);
+	tryWithdraw(creep: Creep, structureContainer: StructureContainer): number {
+		return creep.withdraw(structureContainer, RESOURCE_ENERGY);
 	}
 
-	moveToTryWithdraw(creep: Creep): void {
-		if (this.tryWithdraw(creep) == ERR_NOT_IN_RANGE) {
-			this.moveTo(creep, SourceManager.getNearestContainer(creep.pos), "#B22222");
+	moveToTryWithdraw(creep: Creep, structureContainer: StructureContainer): void {
+		var result = this.tryWithdraw(creep, structureContainer);
+		if (result == ERR_NOT_IN_RANGE) {
+			this.moveTo(creep, structureContainer, "#B22222");
 		}
 	}
 
 	moveToEnergySource(creep: Creep): void {
 		let nearestSource = SourceManager.getNearestContainer(creep.pos);
 		if (nearestSource && nearestSource.store.getUsedCapacity() > 50){
-			this.moveToTryWithdraw(creep);
+			this.moveToTryWithdraw(creep, nearestSource);
 		} else {
 			this.moveToTryPickup(creep);
 		}
