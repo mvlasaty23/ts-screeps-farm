@@ -7,36 +7,43 @@ export namespace Config {
      */
     export const VERBOSE: boolean = false;
 
+    // // APPLICATION GAMEPLAY CONFIGURATION
+    // /**
+    //  * @type {number}
+    //  */
+    // export const MAX_HARVESTERS: number = 3;
+    // /**
+    //  * @type {number}
+    //  */
+	// export const MAX_UPGRADERS: number = 3;
+    // /**
+    //  * @type {number}
+    //  */
+	// export const MAX_MAINTAINERS: number = 0;
+    // /**
+    //  * @type {number}
+    //  */
+	// export const MAX_HARVESTERCONTAINERS: number = 0;
+    // /**
+    //  * @type {number}
+    //  */
+	// export const MAX_HARVESTERTOWER: number = 1;
+    // /**
+    //  * @type {number}
+    //  */
+	// export const MAX_BUILDERS: number = 1;
 
-    // APPLICATION GAMEPLAY CONFIGURATION
-    /**
-     * @type {number}
-     */
-    export const MAX_HARVESTERS: number = 4;
-    /**
-     * @type {number}
-     */
-	export const MAX_HARVESTERCONTAINERS: number = 2;
-    /**
-     * @type {number}
-     */
-	export const MAX_BUILDERS: number = 3;
-    /**
-     * @type {number}
-     */
-	export const MAX_UPGRADERS: number = 5;
+    // /**
+    //  * Default amount of minimal ticksToLive Screep can have, before it goes to renew.
+    //  * @type {number}
+    //  */
+    // export const DEFAULT_MIN_LIFE_BEFORE_NEEDS_REFILL: number = 400;
 
-    /**
-     * Default amount of minimal ticksToLive Screep can have, before it goes to renew.
-     * @type {number}
-     */
-    export const DEFAULT_MIN_LIFE_BEFORE_NEEDS_REFILL: number = 500;
-
-    /**
-     * Default amount of maximal ticksToLive Screep can have, before it goes to finish his renew.
-     * @type {number}
-     */
-	export const DEFAULT_MAX_LIFE_UNTIL_REFILL_COMPLETE: number = 1400;
+    // /**
+    //  * Default amount of maximal ticksToLive Screep can have, before it goes to finish his renew.
+    //  * @type {number}
+    //  */
+	// export const DEFAULT_MAX_LIFE_UNTIL_REFILL_COMPLETE: number = 1100;
 
     /**
      * Default amount of maximal synchronous refills.
