@@ -16,9 +16,9 @@ export const supplierRole = {
   name: 'supplier',
   liveStrategy: respawn,
   workStrategies: [
-    harvestEnergyFromNearestStorage,
-    harvestEnergyFromNearestContainer,
     harvestNearestEnergySource,
+		harvestEnergyFromNearestStorage,
+    harvestEnergyFromNearestContainer,
     transferEnergyToNearestSpawnerExtension,
     transferEnergyToInitialSpawner,
     upgradeRoomController,
