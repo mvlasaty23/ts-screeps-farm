@@ -1,29 +1,16 @@
 import { CreepManager } from "managers/creep-manager";
 import { SourceManager } from "managers/sources-manager";
-import { CreepBase, CreepBaseInterface } from "./creep-base";
+import { CreepBaseInterface } from "./creep-base";
+import { CreepPickupBase } from "./creep-pickup-base";
 
 export interface BuilderInterface {
-	tryPickupEnergy(creep: Creep): number;
-	movePickupEnergy(creep: Creep): void;
 	tryBuild(creep: Creep): number;
 	moveToTryBuild(creep: Creep): void
 
 	action(creep: Creep): boolean;
 }
 
-export class Builder extends CreepBase implements BuilderInterface, CreepBaseInterface {
-	tryPickupEnergy(creep: Creep): number {
-		const target = creep.pos.findClosestByRange<Resource>(106); // FIND_DROPPED_ENERGY
-		return creep.pickup(target);
-	}
-
-	movePickupEnergy(creep: Creep): void {
-		if (this.tryPickupEnergy(creep) == ERR_NOT_IN_RANGE) {
-			const target = creep.pos.findClosestByRange<Resource>(106); // FIND_DROPPED_ENERGY
-			this.moveTo(creep, target, "#B22222");
-		}
-	}
-
+export class Builder extends CreepPickupBase implements BuilderInterface, CreepBaseInterface {
 	tryBuild(creep: Creep): number {
 		creep.say('🐌');
 		const target = SourceManager.getNearestConstructionSite(creep.pos);
@@ -51,7 +38,7 @@ export class Builder extends CreepBase implements BuilderInterface, CreepBaseInt
 				creep.memory.buildInProgress = false;
 			}
 		} else {
-			this.movePickupEnergy(creep);
+			this.moveToEnergySource(creep);
 		}
 
 		return true;
