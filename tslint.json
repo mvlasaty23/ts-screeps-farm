@@ -1,21 +1,20 @@
 {
   "extends" : [
-    "tslint:recommended"
+    "tslint:recommended",
+    "tslint-config-prettier"
   ],
   "rules": {
     "forin": false,
     "interface-name": [false],
     "no-console": [false],
-    "trailing-comma": [
-      true,
-      "never"
-    ],
     "variable-name": [
       true,
       "ban-keywords",
       "check-format",
       "allow-pascal-case",
       "allow-leading-underscore"
-    ]
+    ],
+    "object-literal-sort-keys": false,
+    "ordered-imports": false
   }
 }
