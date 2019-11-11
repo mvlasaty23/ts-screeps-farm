@@ -1,11 +1,12 @@
 import { CreepManager } from 'managers/creep-manager';
 import { TowerManager } from 'managers/tower-manager';
 import { BuildManager } from 'managers/build-manager';
+import { EventManager } from 'managers/event-manager';
 
 export const loop = function() {
 
-	// CreepManager.loadCreeps();
-	// CreepManager.startManageCreeps();
+	EventManager.run();
+
 	CreepManager.run();
 
 	TowerManager.run();

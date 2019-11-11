@@ -1,4 +1,4 @@
-import { Roles } from "enums/Roles";
+import { Roles } from "enums/roles";
 import { BodyBuilder } from "helper/body-builder";
 import { Builder } from "roles/builder";
 import { Carry } from "roles/carry";

@@ -33,7 +33,7 @@ export namespace BuildManager {
 				built(generateRoads(), STRUCTURE_ROAD);
 				built(generateTower(), STRUCTURE_TOWER);
 				built(generateStorage(), STRUCTURE_STORAGE);
-				SpawnManager.getFirstSpawn().memory.controllerUpgradet == false;
+				SpawnManager.getFirstSpawn().memory.controllerUpgradet = false;
 			}
 		}
 	}
