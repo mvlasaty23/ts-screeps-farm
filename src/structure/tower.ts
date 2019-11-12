@@ -38,7 +38,7 @@ export class Tower implements TowerInterface {
 			var roomName = RoomManager.getFirstRoom().name;
 			Game.notify(`User ${username} spotted in room ${roomName}`);
 			tower.attack(hostiles[0]);
-			console.log("attack hostile!! " + hostiles[0].name);
+			// console.log("attack hostile!! " + hostiles[0].name);
 			return true;
 		}
 		return false;

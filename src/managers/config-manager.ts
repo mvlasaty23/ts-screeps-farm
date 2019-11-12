@@ -29,16 +29,16 @@ export namespace ConfigManager {
 		const extensionCount = SpawnManager.getExtensionsLength();
 		if (SourceManager.getFirstController().level == 4 || extensionCount >= 15){
 			configLvl = 4;
-			config = { MAX_MINERS: 2,
-				MAX_CARRYS: 1,
-				MAX_BUILDERS: 3,
+			config = { MAX_MINERS: 3,
+				MAX_CARRYS: 2,
+				MAX_BUILDERS: 1,
 				MAX_UPGRADERS: 4,
 				MAX_MAINTAINERS: 0,
-				MINER_RATIO: 4,
-				CARRY_RATIO: 4,
-				BUILDER_RATIO: 4,
-				UPGRADER_RATIO: 4,
-				MAINTAINTER_RATIO: 4
+				MINER_RATIO: 3,
+				CARRY_RATIO: 3,
+				BUILDER_RATIO: 3,
+				UPGRADER_RATIO: 3,
+				MAINTAINTER_RATIO: 3
 			}
 			if (Config.VERBOSE) {
 				console.log("Config level: " + configLvl);

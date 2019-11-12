@@ -1,5 +1,5 @@
-import { RoomManager } from "managers/room-manager";
 import { SpawnManager } from "managers/spawn-manager";
+import { RoomManager } from "managers/room-manager";
 
 export interface CreepBaseInterface {
 	isBagEmpty(creep: Creep): boolean;
@@ -28,7 +28,7 @@ export class CreepBase implements CreepBaseInterface {
 
     public action(creep: Creep): boolean {
 		let hostiles = RoomManager.detectHostiles();
-		if (hostiles.length) {
+		if (hostiles.length > 0) {
 			// attack
 			if (creep.attack(hostiles[0]) == ERR_NOT_IN_RANGE) {
 				this.moveTo(creep, hostiles[0], "#FF0000");

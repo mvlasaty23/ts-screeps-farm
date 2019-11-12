@@ -28,7 +28,6 @@ export class Carry extends CreepPickupBase implements CarryInterface, CreepBaseI
 
 		// first fill spawn
 		if (result["store"].getFreeCapacity(RESOURCE_ENERGY) === 0) {
-
 			// then fill extensions
 			let extension = creep.pos.findClosestByRange<Structure>(FIND_STRUCTURES, {
 				filter: (structure: Structure) => {
@@ -37,18 +36,29 @@ export class Carry extends CreepPickupBase implements CarryInterface, CreepBaseI
 				}
 			});
 
-			if (extension){
-				result = extension;
-			} else {
-				// then fill all other targets
-				let target: Structure = creep.pos.findClosestByRange<Structure>(FIND_STRUCTURES, {
-					filter: (structure: Structure) => {
-						return (structure.structureType == STRUCTURE_TOWER) &&
-							structure["store"].getFreeCapacity(RESOURCE_ENERGY) > 0;
-					}
-				});
-				result = target;
+			if (extension) {
+				return extension;
 			}
+
+			// then fill storage
+			let storage: Structure = creep.pos.findClosestByRange<Structure>(FIND_STRUCTURES, {
+				filter: (structure: Structure) => {
+					return (structure.structureType == STRUCTURE_STORAGE) &&
+						structure["store"].getFreeCapacity(RESOURCE_ENERGY) > 0;
+				}
+			});
+			if (storage) {
+				return storage;
+			}
+
+			// then fill all other targets
+			let target: Structure = creep.pos.findClosestByRange<Structure>(FIND_STRUCTURES, {
+				filter: (structure: Structure) => {
+					return (structure.structureType == STRUCTURE_TOWER) &&
+						structure["store"].getFreeCapacity(RESOURCE_ENERGY) > 0;
+				}
+			});
+			result = target;
 		}
 
 		return result;
