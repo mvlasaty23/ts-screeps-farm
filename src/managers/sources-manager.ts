@@ -1,7 +1,6 @@
 import { RoomManager } from "./room-manager";
 
 export namespace SourceManager {
-
     export function getFirstSource(): Source {
         return RoomManager.getFirstRoom().find<Source>(FIND_SOURCES_ACTIVE)[0];
 	}

@@ -15,7 +15,7 @@ export namespace SpawnManager {
 
 	export function getExtensionsLength(): number {
 		let extensions = RoomManager.getFirstRoom().find<StructureExtension>(FIND_STRUCTURES, {
-			filter: (object: StructureExtension) => (object.structureType == STRUCTURE_EXTENSION)
+			filter: (object: StructureExtension) => (object.structureType == STRUCTURE_EXTENSION && object.isActive())
 		});
 		return extensions.length;
 	}

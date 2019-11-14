@@ -1,4 +1,3 @@
-import { SourceManager } from "managers/sources-manager";
 import { CreepBaseInterface } from "./creep-base";
 import { CreepPickupBase } from "./creep-pickup-base";
 
@@ -12,13 +11,13 @@ export interface BuilderInterface {
 export class Builder extends CreepPickupBase implements BuilderInterface, CreepBaseInterface {
 	tryBuild(creep: Creep): number {
 		creep.say('🐌');
-		const target = SourceManager.getNearestConstructionSite(creep.pos);
+		const target = Game.getObjectById<ConstructionSite>(creep.memory.energyDropOffId);
         return creep.build(target);
 	}
 
 	moveToTryBuild(creep: Creep): void {
 		if (this.tryBuild(creep) == ERR_NOT_IN_RANGE) {
-			const target = SourceManager.getNearestConstructionSite(creep.pos);
+			const target = Game.getObjectById<ConstructionSite>(creep.memory.energyDropOffId);
 			this.moveTo(creep, target, "#000000");
 		}
 	}

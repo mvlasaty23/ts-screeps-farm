@@ -18,6 +18,6 @@ export namespace RoomManager {
 	}
 
 	export function getStorage(): StructureStorage {
-		return getFirstRoom().storage;
+		return getFirstRoom().storage.isActive() ?  getFirstRoom().storage : undefined;
 	}
 }

@@ -1,10 +1,7 @@
-import { RoomManager } from "managers/room-manager";
 import { CreepBaseInterface } from "./creep-base";
 import { CreepPickupBase } from "./creep-pickup-base";
 
 export interface UpgraderInterface {
-	tryPickup(creep: Creep): number;
-	moveToTryPickup(creep: Creep): void;
 	tryEnergyDropOff(creep: Creep): void;
 	moveToEnergyDropOff(creep: Creep): void
 
@@ -14,12 +11,14 @@ export interface UpgraderInterface {
 export class Upgrader extends CreepPickupBase implements UpgraderInterface, CreepBaseInterface {
 	tryEnergyDropOff(creep: Creep): number {
 		creep.say("🔋");
-		return creep.upgradeController(RoomManager.getFirstRoom().controller);
+		const target = Game.getObjectById<Controller>(creep.memory.energyDropOffId);
+		return creep.upgradeController(target);
 	}
 
 	moveToEnergyDropOff(creep: Creep): void {
 		if (this.tryEnergyDropOff(creep) == ERR_NOT_IN_RANGE) {
-			this.moveTo(creep, RoomManager.getFirstRoom().controller, '#FFD700');
+			const target = Game.getObjectById<Controller>(creep.memory.energyDropOffId);
+			this.moveTo(creep, target, '#FFD700');
 		}
 	}
 
@@ -28,13 +27,13 @@ export class Upgrader extends CreepPickupBase implements UpgraderInterface, Cree
 			return;
 		}
 
-		if (this.isBagFull(creep) || creep.memory["unloadInProgress"]) {
-			creep.memory["unloadInProgress"] = true;
+		if (this.isBagFull(creep) || creep.memory.unloadInProgress) {
+			creep.memory.unloadInProgress = true;
 			this.moveToEnergyDropOff(creep);
 
 			// reset unloadInProgress if bag is empty!
 			if (this.isBagEmpty(creep)) {
-				creep.memory["unloadInProgress"] = false;
+				creep.memory.unloadInProgress = false;
 			}
 		} else {
 			this.moveToEnergySource(creep);

@@ -1,5 +1,4 @@
 import { CreepBase, CreepBaseInterface } from "./creep-base";
-import { SourceManager } from "managers/sources-manager";
 
 export interface MinerInterface {
 	tryHarvest(creep: Creep): number;
@@ -10,12 +9,15 @@ export interface MinerInterface {
 
 export class Miner extends CreepBase implements MinerInterface, CreepBaseInterface {
 	public tryHarvest(creep: Creep): number {
-		return creep.harvest(SourceManager.getNearestSource(creep));
+		const target = Game.getObjectById<Source>(creep.memory.sourceId);
+		return creep.harvest(target);
 	}
 
 	public moveToHarvest(creep: Creep): void {
-		if (this.tryHarvest(creep) == ERR_NOT_IN_RANGE) {
-			this.moveTo(creep, SourceManager.getNearestSource(creep), "#B22222");
+		const result = this.tryHarvest(creep);
+		if (result == ERR_NOT_IN_RANGE) {
+			const target = Game.getObjectById<Source>(creep.memory.sourceId);
+			this.moveTo(creep, target, "#B22222");
 		}
 	}
 

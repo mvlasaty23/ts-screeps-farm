@@ -1,10 +1,7 @@
-import { SourceManager } from "managers/sources-manager";
 import { CreepBaseInterface } from "./creep-base";
 import { CreepPickupBase } from "./creep-pickup-base";
 
 export interface MaintainerInterface {
-	tryPickup(creep: Creep): number;
-	moveToTryPickup(creep: Creep): void;
 	tryMaintain(creep: Creep): void;
 	moveToTryMaintain(creep: Creep): void
 
@@ -13,12 +10,14 @@ export interface MaintainerInterface {
 
 export class Maintainer extends CreepPickupBase implements MaintainerInterface, CreepBaseInterface {
 	tryMaintain(creep: Creep): number {
-		return creep.repair(SourceManager.getNearestMaintainObject(creep.pos));
+		const target = Game.getObjectById<Structure>(creep.memory.energyDropOffId);
+		return creep.repair(target);
 	}
 
 	moveToTryMaintain(creep: Creep): void {
 		if (this.tryMaintain(creep) == ERR_NOT_IN_RANGE) {
-			this.moveTo(creep, SourceManager.getNearestMaintainObject(creep.pos), '#FFD700');
+			const target = Game.getObjectById<Structure>(creep.memory.energyDropOffId);
+			this.moveTo(creep, target, '#FFD700');
 		}
 	}
 

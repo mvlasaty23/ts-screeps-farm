@@ -24,10 +24,12 @@ export namespace BuildManager {
 				const freePositions = getFreePositionsAround(spawn.pos, 7);
 				built(freePositions, STRUCTURE_EXTENSION);
 			}
+			SpawnManager.getFirstSpawn().memory.controllerUpgradet = false;
 		} else {
 			// built containers
 			if (SourceManager.getContainerLength() < 5) {
 				built(generateContainers(), STRUCTURE_CONTAINER);
+				SpawnManager.getFirstSpawn().memory.controllerUpgradet = false;
 			} else if (SpawnManager.getFirstSpawn().memory.controllerUpgradet) {
 				built(generateControllerRoads(), STRUCTURE_ROAD);
 				built(generateRoads(), STRUCTURE_ROAD);
