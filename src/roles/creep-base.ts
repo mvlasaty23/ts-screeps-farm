@@ -80,7 +80,7 @@ export class CreepBase implements CreepBaseInterface {
 		const tower: StructureTower = creep.pos.findClosestByPath<StructureTower>(FIND_STRUCTURES, {
 			filter: (structure: Structure) => {
 				return (structure.structureType == STRUCTURE_TOWER) &&
-					structure["store"].getFreeCapacity(RESOURCE_ENERGY) > 0;
+					structure["store"].getFreeCapacity(RESOURCE_ENERGY) > 500;
 			}
 		});
 		const storage: StructureStorage = creep.pos.findClosestByPath<StructureStorage>(FIND_STRUCTURES, {
@@ -225,7 +225,7 @@ export class CreepBase implements CreepBaseInterface {
 					this.setEnergyDropOffId(creep);
 				}
 			} else if (target instanceof StructureTower) {
-				if ((target as StructureTower)["store"].getFreeCapacity(RESOURCE_ENERGY) < 500) {
+				if ((target as StructureTower)["store"].getFreeCapacity(RESOURCE_ENERGY) <= 10) {
 					this.setEnergyDropOffId(creep);
 				}
 			} else if (target instanceof StructureStorage) {
