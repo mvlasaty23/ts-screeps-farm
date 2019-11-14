@@ -164,8 +164,29 @@ export class CreepBase implements CreepBaseInterface {
     public moveTo(creep: Creep, target: RoomPosition|{pos: RoomPosition}, color: string) {
         return creep.moveTo(target, {visualizePathStyle: {stroke: color}});
     }
-
     public action(creep: Creep): boolean {
+		this.checkIfTargetIsObsolete(creep);
+
+		let hostiles = RoomManager.detectHostiles();
+		if (hostiles.length > 0 && creep.body.find(x => x.type == ATTACK)) {
+			// attack
+			if (creep.attack(hostiles[0]) == ERR_NOT_IN_RANGE) {
+				this.moveTo(creep, hostiles[0], "#FF0000");
+			}
+			// return true to break execution after
+			return true;
+		} else if (["7822c3309624766"].indexOf(creep.id) > -1) { // kill creep
+			creep.say("🧟‍♂️");
+			if (SpawnManager.getFirstSpawn().recycleCreep(creep) == ERR_NOT_IN_RANGE) {
+				this.moveTo(creep, SpawnManager.getFirstSpawn().pos, "#FF0000");
+			}
+			return true;
+		}
+
+        return false;
+    }
+
+	private checkIfTargetIsObsolete(creep: Creep) {
 		if ((creep.memory.role == Roles.Builder
 			|| creep.memory.role == Roles.Carry
 			|| creep.memory.role == Roles.Maintainer
@@ -192,43 +213,25 @@ export class CreepBase implements CreepBaseInterface {
 			this.setEnergyDropOffId(creep);
 			console.log("setEnergyDropOffId", creep.name, creep.memory.role);
 		} else {
-			const target = Game.getObjectById<StructureExtension | StructureStorage | Resource>(creep.memory.energyDropOffId);
+			const target = Game.getObjectById<StructureSpawn | StructureExtension | StructureTower | StructureStorage | Resource>(creep.memory.energyDropOffId);
 			if (!target) {
 				this.setEnergyDropOffId(creep);
+			} else if (target instanceof StructureSpawn) {
+				if ((target as StructureSpawn)["store"].getFreeCapacity(RESOURCE_ENERGY) == 0) {
+					this.setEnergyDropOffId(creep);
+				}
 			} else if (target instanceof StructureExtension) {
-				console.log(target);
 				if ((target as StructureExtension)["store"].getFreeCapacity(RESOURCE_ENERGY) == 0) {
 					this.setEnergyDropOffId(creep);
 				}
+			} else if (target instanceof StructureTower) {
+				if ((target as StructureTower)["store"].getFreeCapacity(RESOURCE_ENERGY) < 500) {
+					this.setEnergyDropOffId(creep);
+				}
 			} else if (target instanceof StructureStorage) {
-				console.log(target);
 				// check if other available
 				this.setEnergyDropOffId(creep);
 			}
-			// else if (target instanceof StructureExtension) {
-			// 	console.log(target);
-			// 	if ((target as Structure)["store"].getFreeCapacity(RESOURCE_ENERGY) == 0) {
-			// 		this.setEnergyDropOffId(creep);
-			// 	}
-			// }
 		}
-
-		let hostiles = RoomManager.detectHostiles();
-		if (hostiles.length > 0 && creep.body.find(x => x.type == ATTACK)) {
-			// attack
-			if (creep.attack(hostiles[0]) == ERR_NOT_IN_RANGE) {
-				this.moveTo(creep, hostiles[0], "#FF0000");
-			}
-			// return true to break execution after
-			return true;
-		} else if (["7822c3309624766"].indexOf(creep.id) > -1) { // kill creep
-			creep.say("🧟‍♂️");
-			if (SpawnManager.getFirstSpawn().recycleCreep(creep) == ERR_NOT_IN_RANGE) {
-				this.moveTo(creep, SpawnManager.getFirstSpawn().pos, "#FF0000");
-			}
-			return true;
-		}
-
-        return false;
-    }
+	}
 }
