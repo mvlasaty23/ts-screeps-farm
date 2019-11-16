@@ -13,7 +13,9 @@
     "feature": "webpack --colors --env.ENV=feature",
     "watch-local": "webpack --colors --watch --env.ENV=local",
     "test": "echo \"Error: no test specified\" && exit 1",
-    "typings": "typings"
+		"typings": "typings",
+		"format:check": "prettier -c *",
+		"format:write": "prettier --write *"
   },
   "author": "",
   "license": "MIT",
