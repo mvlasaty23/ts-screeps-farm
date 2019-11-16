@@ -7,9 +7,9 @@ export const builderRole = {
   name: 'builder',
   liveStrategy: respawn,
   workStrategies: [
-		harvestNearestEnergySource, // remove me!
-    harvestEnergyFromNearestStorage,
     harvestEnergyFromNearestContainer,
+		harvestEnergyFromNearestStorage,
+		harvestNearestEnergySource, // remove me!
     buildStructures,
     repairStructures,
     repairRoads,

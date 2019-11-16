@@ -12,9 +12,19 @@ export const upgraderRole = {
   name: 'upgrader',
   liveStrategy: respawn,
   workStrategies: [
-    harvestEnergyFromNearestContainer,
     harvestEnergyFromNearestStorage,
+    harvestEnergyFromNearestContainer,
     harvestNearestEnergySource,
     upgradeRoomController,
   ],
 };
+
+// query energyStrategies by rcLevel, spawner, sourceype order by priority
+// const energyStrategyMap = [
+// 	{
+// 		rcLevel: 1,
+// 		spawner: 1,
+// 		sourceType: 1,
+// 		priority: 1,
+// 	}
+// ];
