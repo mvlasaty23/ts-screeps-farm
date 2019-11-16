@@ -9,8 +9,8 @@
     "noUnusedParameters": true,
     "noUnusedLocals": true,
     "sourceMap": true,
-	"baseUrl": "./src/",
-	"strictNullChecks": false
+    "baseUrl": "./src/",
+    "strictNullChecks": false
   },
   "compileOnSave": false,
   "include": [
@@ -21,9 +21,5 @@
     "src/**/*.ts",
     "src/**/*.d.ts"
   ],
-  "exclude": [
-    "dist",
-    "node_modules",
-    "src/snippets"
-  ]
+  "exclude": ["dist", "node_modules", "src/snippets"]
 }

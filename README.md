@@ -2,7 +2,7 @@
 
 > Starter kit for [TypeScript](http://www.typescriptlang.org/)-based [Screeps](https://screeps.com/) AI codes.
 
------
+---
 
 **Warning: This was forked to ensure the code in [this tutorial](https://screepsworld.com/2017/07/typescreeps-installing-everything-you-need/) would remain valid. For other purposes I recommend using the original repository**
 
@@ -13,12 +13,12 @@ It is based on [the original starter kit](https://github.com/MarkoSulamagi/Scree
 
 ## Table of Contents
 
-* [Features](#features)
-* [Quick Start](#quick-start)
-* [Configuration](#configuration)
-* [Testing](#testing)
-* [Notes](#notes)
-* [Contributing](#contributing)
+- [Features](#features)
+- [Quick Start](#quick-start)
+- [Configuration](#configuration)
+- [Testing](#testing)
+- [Notes](#notes)
+- [Contributing](#contributing)
 
 ## Features
 
@@ -32,18 +32,17 @@ It is based on [the original starter kit](https://github.com/MarkoSulamagi/Scree
 - "Snippets" directory for code you want to save, but don't want compiled or linted
 - Modest starter code to get you started, but not hold your hand
 
-
 ## Quick Start
 
 ### Requirements
 
-* [Node.js](https://nodejs.org/en/) (latest LTS is recommended)
-* [Typings](https://github.com/typings/typings)
-* [Yarn](https://yarnpkg.com/en/) - Optional. You can use `npm` if you don't want to, but this is for your own sanity.
+- [Node.js](https://nodejs.org/en/) (latest LTS is recommended)
+- [Typings](https://github.com/typings/typings)
+- [Yarn](https://yarnpkg.com/en/) - Optional. You can use `npm` if you don't want to, but this is for your own sanity.
 
 For testing **NOTE** _Testing is currently a work-in-progress_:
 
-* [Mocha](https://mochajs.org/) test runner and [NYC](https://istanbul.js.org/) for code coverage - `yarn global add nyc mocha`
+- [Mocha](https://mochajs.org/) test runner and [NYC](https://istanbul.js.org/) for code coverage - `yarn global add nyc mocha`
 
 ### Download
 
@@ -62,6 +61,7 @@ or, for npm:
 ```bash
 $ npm install
 ```
+
 ### Configure Screeps credentials
 
 Create a copy of `config/credentials.example.json` and rename it to `config/credentials.json`.
@@ -73,7 +73,7 @@ Create a copy of `config/credentials.example.json` and rename it to `config/cred
 $ cp config/credentials.example.json config/credentials.json
 ```
 
-In the newly created `credentials.json` file, change the `email` and `password` properties with your Screeps credentials.  The `serverPassword`, `token`, and `gzip` options are only for private servers that support them.  If you are uploading to the public Screeps server, you should delete these fields from your credentials file.
+In the newly created `credentials.json` file, change the `email` and `password` properties with your Screeps credentials. The `serverPassword`, `token`, and `gzip` options are only for private servers that support them. If you are uploading to the public Screeps server, you should delete these fields from your credentials file.
 
 See [Configuration](#configuration) for more in-depth info on configuration options.
 
@@ -87,7 +87,6 @@ $ npm start
 $ npm run deploy
 ```
 
-
 ## Configuration
 
 This project is configured in two places. `config/` is for deployment configuration, and contains your screeps login credentials along with other options.
@@ -98,7 +97,7 @@ This project is configured in two places. `config/` is for deployment configurat
 You can use the configuration variables in `src/config` by importing the file:
 
 ```js
-import * as Config from "../path/to/config";
+import * as Config from '../path/to/config';
 ```
 
 ... and simply calling the config variables with `Config.CONFIG_VARIABLE` in your code.
@@ -122,7 +121,6 @@ The files under `config/`, as well as `webpack.config.ts` are where deployment c
 
 It's helpful to remember that the config is just a javascript object, and can be passed around and modifide using [webpack-chain](https://github.com/mozilla-neutrino/webpack-chain).
 
-
 #### Environment:
 
 `webpack.config.ts` is for setting environment variables defaults throughout the rest of the config.
@@ -133,6 +131,7 @@ For example:
 # (npm requires arguments be seperated by a double dash)
 $ npm run build -- --env.TEST=true
 ```
+
 Will set the member `TEST` to `true` on the options object.
 
 Remember, the config code is just a typescript function that return a config object, so you can hypothetically configure it wherever and however is most convenient.
@@ -150,50 +149,48 @@ Because these values are evaluated once as a string (for the find-and-replace), 
 
 Webpack can do a lot with these variables and dead code elimination.
 
-*__Caveats__: you need to let typescript know about these variables by declaring them in a type definitions (`.d.ts`) file.
+_**Caveats**: you need to let typescript know about these variables by declaring them in a type definitions (`.d.ts`) file.
 Also be careful not to use too common of a name, because it will replace it throughout your code without warning.
-A good standard is to make the variables all caps, and surrounded by double underscores, so they stand out (ex: `__REVISION__`).*
+A good standard is to make the variables all caps, and surrounded by double underscores, so they stand out (ex: `__REVISION__`)._
 
 #### Additional Options
 
-`config.common.ts` is for config options common to all environments.  Other environments can inherit from this file, and add to, or override options on the config object.
+`config.common.ts` is for config options common to all environments. Other environments can inherit from this file, and add to, or override options on the config object.
 
-`config.dev.ts` is a specific environment configuration.  You can potentially have as many environments as you make files for.  To specify which environment to use, append `--env.ENV=` and the environment name to any commands.  An example is provided in `package.json`.
+`config.dev.ts` is a specific environment configuration. You can potentially have as many environments as you make files for. To specify which environment to use, append `--env.ENV=` and the environment name to any commands. An example is provided in `package.json`.
 
-`config.local.ts` is an example configuration for local deploys.  If you want to deploy to a local server for testing, just edit the path in the file and run with `npm run local` or `npm run watch-local`.
+`config.local.ts` is an example configuration for local deploys. If you want to deploy to a local server for testing, just edit the path in the file and run with `npm run local` or `npm run watch-local`.
 
 Common options you may wish to configure:
 
-`output.path`:  This is the output path for the compiled js.  If you are running a local server, you may consider adding an environment that outputs directly to the screeps local folder.  This is equivalent to the `localPath` setting in older versions of the screeps-typescript-starter.
+`output.path`: This is the output path for the compiled js. If you are running a local server, you may consider adding an environment that outputs directly to the screeps local folder. This is equivalent to the `localPath` setting in older versions of the screeps-typescript-starter.
 
-`watchOptions.ignored`:  This option is only to save computer resources, since watch-mode (`npm start`) can be CPU intensive.  You can exclude directories you know don't need to be watched.
+`watchOptions.ignored`: This option is only to save computer resources, since watch-mode (`npm start`) can be CPU intensive. You can exclude directories you know don't need to be watched.
 
-`module.rules`:  These are the individual rules webpack uses to process your code.  The defaults are generally all you will need.  The most useful change you may want to make here is to explicity `exclude` files or directories from being compiled or linted (in case of 3rd party code, for example).  These values, like all others can be passed around and modified before webpack acts on them.
+`module.rules`: These are the individual rules webpack uses to process your code. The defaults are generally all you will need. The most useful change you may want to make here is to explicity `exclude` files or directories from being compiled or linted (in case of 3rd party code, for example). These values, like all others can be passed around and modified before webpack acts on them.
 
 #### Change the upload branch
 
-You code is uploaded to the branch configured by the `branch` property on the object sent to `new ScreepsWebpackPlugin` (see `config/config.dev.ts`).  You have three ways to customize this:
+You code is uploaded to the branch configured by the `branch` property on the object sent to `new ScreepsWebpackPlugin` (see `config/config.dev.ts`). You have three ways to customize this:
 
 1.  Multiple config environment files, each with a seperate branch
 2.  Use the special variables `'$activeWorld'` to upload to whatever brach is active in the Screeps world
-3.  Configure a new environment variable in `webpack.config.ts` and use that in your code.  For example:
+3.  Configure a new environment variable in `webpack.config.ts` and use that in your code. For example:
 
 ```typescript
 // webpack.custom-env.ts
-const ScreepsWebpackPlugin = require("screeps-webpack-plugin");
+const ScreepsWebpackPlugin = require('screeps-webpack-plugin');
 const git = require('git-rev-sync'); // make sure you require `git-rev-sync`
 
-const credentials: Credentials = require("./credentials.json");
+const credentials: Credentials = require('./credentials.json');
 credentials.branch = git.branch();
 
-config.plugin("screeps").use(ScreepsWebpackPlugin, [credentials]);
-
+config.plugin('screeps').use(ScreepsWebpackPlugin, [credentials]);
 ```
 
-The above example will automatically set your upload branch to be the same as your active git branch.  This is functionally equivalent to the option `"autobranch": true` in older versions.
+The above example will automatically set your upload branch to be the same as your active git branch. This is functionally equivalent to the option `"autobranch": true` in older versions.
 
 You still have to create matching branch in screeps client by cloning an existing branch (API limitation). This is useful when setting up deployment pipelines that upload on commit after successful build (so a commit to `major_refactoring` branch doesn't overwrite your default branch in the middle of epic alliance action just because you forgot to update a pipeline configuration).
-
 
 ## Testing
 
@@ -230,7 +227,7 @@ For writing assertions we provide [chai](http://chaijs.com). Check out their
 **Important:** In your tests, if you want to use lodash you must import it explicitly to avoid errors:
 
 ```js
-import * as _  from "lodash"
+import * as _ from 'lodash';
 ```
 
 ## Notes
@@ -247,15 +244,14 @@ When starting from scratch, make sure a `main.ts` file exists with a `loop()` fu
 
 The `--strict` mode was introduced in TypeScript 2.3 which sets all strict type-checking options to `true` by default. The options affected under the `--strict` mode are as follows (and may in the future include more options):
 
-* `--strictNullChecks`
-* `--noImplicitAny`
-* `--noImplicitThis`
-* `--alwaysStrict`
+- `--strictNullChecks`
+- `--noImplicitAny`
+- `--noImplicitThis`
+- `--alwaysStrict`
 
 Starting from version 2.0 of the starter kit, the `tsconfig.json` file will include a `"strict": true` setting in the `"compilerOptions"` section, to conform with the TS 2.3 defaults. If this gives you compile errors, you can try setting `"strict"` to `false`, or by overriding one or more of the options listed above.
 
 **For more info:** https://www.typescriptlang.org/docs/handbook/release-notes/typescript-2-3.html#new---strict-master-option
-
 
 ### TSLint
 
@@ -269,10 +265,10 @@ This project provides TSLint rules through a `tslint.json` file, which extends t
 
 We made some changes to those rules, which we considered necessary and/or relevant to a proper Screeps project:
 
- - set the [forin](http://palantir.github.io/tslint/rules/forin/) rule to `false`, it was forcing `for ( ... in ...)` loops to check if object members were not coming from the class prototype.
- - set the [interface-name](http://palantir.github.io/tslint/rules/interface-name/) rule to `false`, in order to allow interfaces that are not prefixed with `I`.
- - set the [no-console](http://palantir.github.io/tslint/rules/no-console/) rule to `false`, in order to allow using `console`.
- - in the [variable-name](http://palantir.github.io/tslint/rules/variable-name/) rule, added `allow-leading-underscore`.
+- set the [forin](http://palantir.github.io/tslint/rules/forin/) rule to `false`, it was forcing `for ( ... in ...)` loops to check if object members were not coming from the class prototype.
+- set the [interface-name](http://palantir.github.io/tslint/rules/interface-name/) rule to `false`, in order to allow interfaces that are not prefixed with `I`.
+- set the [no-console](http://palantir.github.io/tslint/rules/no-console/) rule to `false`, in order to allow using `console`.
+- in the [variable-name](http://palantir.github.io/tslint/rules/variable-name/) rule, added `allow-leading-underscore`.
 
 If you believe that some rules should not apply to a part of your code, you can use flags to let TSLint know about it: https://palantir.github.io/tslint/usage/rule-flags/
 
@@ -296,7 +292,7 @@ log.showSource = false;
 log.showTick = false;
 ```
 
-![Console output example](/console.png "Console output example")
+![Console output example](/console.png 'Console output example')
 
 **TODO: Fix this readme info**
 **Note:** As a side effect of changing the project to webpack, the built-in URL template is no longer automatically configured. GitHub and GitLab. If you use Bitbucket, replace `LOG_VSC_URL_TEMPLATE` on your `config.ts` with this:
